@@ -1,0 +1,62 @@
+<div class="container-principal">
+    <form id="createProdutoForm">
+        <div>
+            <label for="nome">Nome do Produto:</label>
+            <input type="text" id="nome" name="nome" required>
+        </div>
+
+        <div>
+            <label for="lote">Número do Lote:</label>
+            <input type="text" id="lote" name="lote">
+        </div>
+
+        <div>
+            <label>Vencimentos:</label>
+            <button type="button" id="add-vencimento">Adicionar Vencimento</button>
+            
+            <div id="vencimentos-container">
+                <div class="vencimento-item">
+                    <input type="date" name="vencimentos[]">
+                    <button type="button" class="remove-vencimento">Remover</button>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit">Cadastrar Produto</button>
+    </form>
+</div>
+<script src="/js/adicionar-produto.js"></script>
+<script>
+    document.getElementById('createProdutoForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formData = {
+            nome: document.getElementById('nome').value,
+            lote: document.getElementById('lote').value,
+            vencimentos: Array.from(document.querySelectorAll('[name="vencimentos[]"]'))
+                .map(input => input.value)
+                .filter(date => date) // Remove valores vazios
+        };
+
+        try {
+            const response = await fetch('/api/produtos/adicionar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            const result = await response.json(); // Sempre parseia como JSON
+
+            if (result.success) {
+                window.location.replace('/');
+            } else {
+                alert(`Erro: ${result.message}\nDetalhes: ${result.error}`);
+            }
+
+        } catch (error) {
+            alert('Erro de comunicação com o servidor');
+        }
+    });
+</script>

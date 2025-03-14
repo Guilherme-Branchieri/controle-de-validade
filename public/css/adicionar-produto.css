@@ -1,0 +1,206 @@
+/* public/css/styles.css */
+:root {
+    --primary: #2c3e50;
+    /* Cor principal */
+    --secondary: #3498db;
+    /* Cor do sublinhado */
+    --success: #27ae60;
+    /* Fresh green for submit button */
+    --danger: #e74c3c;
+    /* Warm red for remove buttons */
+    --light: #ecf0f1;
+    /* Light gray for backgrounds */
+    --dark: #2c3e50;
+    /* Dark text */
+}
+
+/* Base Styles */
+body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.6;
+    color: var(--dark);
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 20px;
+}
+
+.container-principal {
+    /* background-color: #1976d2; */
+    width: 100%;
+    height: 100vh;
+    margin: 0 auto;
+    padding: 12px;
+    display: flex;
+}
+
+#editProdutoForm,
+#createProdutoForm {
+    padding: 8px;
+    margin: 0 auto;
+}
+
+.container {
+    margin: 0 auto;
+    background: white;
+    background-color: black;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: var(--primary);
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    border-bottom: 3px solid var(--secondary);
+    padding-bottom: 0.5rem;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 1.5rem;
+    background-color: red;
+}
+
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+input[type="text"],
+input[type="date"] {
+    padding: 0.8rem;
+    border: 2px solid #dfe6e9;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus {
+    border-color: var(--secondary);
+    outline: none;
+}
+
+/* Dynamic Vencimentos Section */
+#vencimentos-container {
+    margin: 1rem 0;
+}
+
+.vencimento-item {
+    margin-bottom: 1rem;
+}
+
+.vencimento-item .remove-vencimento {
+    display: inline-block;
+}
+
+.vencimento-item input {
+    flex: 1;
+}
+
+
+.remove-vencimento:hover {
+    opacity: 0.9;
+}
+
+.remove-vencimento,
+button[type="submit"],
+#add-vencimento {
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+
+}
+
+.remove-vencimento {
+    background: #ffebeb;
+    color: #e92b2b;
+}
+
+
+.remove-vencimento:hover {
+    background: #ffcdcd;
+    transform: translateY(-1px);
+}
+
+#add-vencimento {
+    background: #e3f2fd;
+    color: #1976d2;
+    margin-bottom: 1rem;
+}
+
+#add-vencimento:hover {
+    background: #bbdefb;
+    transform: translateY(-1px);
+
+}
+
+/* Submit Button */
+button[type="submit"] {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+}
+
+button[type="submit"] {
+    background: #e8f5e9 !important;
+    color: #2e7d32 !important;
+}
+
+button[type="submit"]:hover {
+    background: #c8e6c9 !important;
+    transform: translateY(-1px);
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+
+    input[type="text"],
+    input[type="date"] {
+        padding: 0.8rem;
+        border: 2px solid #dfe6e9;
+        border-radius: 5px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+        margin: 0 auto;
+    }
+
+
+    .container-principal {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .container {
+        padding: 1rem;
+        color: black;
+    }
+
+    .vencimento-item {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .remove-vencimento {
+        align-self: flex-start;
+    }
+}

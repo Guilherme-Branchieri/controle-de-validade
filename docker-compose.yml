@@ -1,0 +1,7 @@
+services:
+  controle-de-validade:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: "990831"
+    ports:
+      - "5432:5432"

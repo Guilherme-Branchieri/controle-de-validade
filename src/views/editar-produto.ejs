@@ -1,0 +1,72 @@
+<div class="container-principal" style="width: fit-content; height: fit-content; margin: 50px auto;">
+    <form id="editarProdutoForm">
+        <div data-productId="<%= produto.id %>">
+            <label for="nome">Nome do Produto:</label>
+            <input type="text" id="nome" name="nome" value="<%= produto.nome %>" required>
+        </div>
+
+        <div>
+            <label for="lote">Número do Lote:</label>
+            <input type="text" id="lote" name="lote" value="<%= produto.lote %>">
+        </div>
+
+        <div>
+            <label>Vencimentos:</label>
+            <button type="button" id="add-vencimento">Adicionar Vencimento</button>
+
+            <div id="vencimentos-container">
+                <% produto.vencimentos.forEach(function(vencimento) { %>
+                    <div class="vencimento-item">
+                        <input type="date" name="vencimentos[]" value="<%= vencimento.toISOString().split('T')[0] %>">
+                        <button type="button" class="remove-vencimento">Remover</button>
+                    </div>
+                    <% }); %>
+            </div>
+        </div>
+
+
+        <button class="submit-button" type="submit">Salvar Produto</button>
+    </form>
+</div>
+
+<script src="/js/editar-produto.js"></script>
+<script>
+    document.getElementById('editarProdutoForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const productId = document.querySelector('[data-productId]').getAttribute('data-productId');
+
+
+        const formData = {
+            id: parseInt(productId),
+            nome: document.getElementById('nome').value,
+            lote: document.getElementById('lote').value,
+            vencimentos: Array.from(document.querySelectorAll('[name="vencimentos[]"]'))
+                .map(input => input.value)
+                .filter(date => date)
+        };
+        console.log(formData)
+
+        try {
+            const response = await fetch(`/api/produtos/editar/${productId}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+            console.log(response)
+
+            const result = await response.json();
+            console.log(result)
+            if (result.success) {
+                window.location.replace('/produtos');
+            } else {
+                alert(`Erro: ${result.message}\nDetalhes: ${result.error}`);
+            }
+
+        } catch (error) {
+            alert('Erro de comunicação com o servidor');
+            console.log(error)
+        }
+    });
+</script>

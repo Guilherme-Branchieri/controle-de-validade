@@ -14,10 +14,10 @@ datasource db {
 }
 
 model Produto {
-  id                Int        @id @default(autoincrement())
-  nome              String     @unique
-  lote              String?
-  vencimentos       DateTime[]
+  id          Int        @id @default(autoincrement())
+  nome        String     @unique
+  lote        String?
+  vencimentos DateTime[]
 
   @@map("produtos")
 }

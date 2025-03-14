@@ -114,7 +114,7 @@ app.get('/', async (req, res) => {
 //     }
 // })
 
-app.get("/migrate-data", async (req, res) => {
+app.get("/export-data", async (req, res) => {
     const produtos = await prisma.produto.findMany()
     console.log(produtos);
     const writer = createObjectCsvWriter({
@@ -130,8 +130,16 @@ app.get("/migrate-data", async (req, res) => {
         console.log("Done");
 
     })
+})
 
+app.get('/import-data', async (req, res) => {
+    try {
+        await seedDatabase()
+        res.send({ message: "done" })
+    } catch (error) {
+        console.log(error);
 
+    }
 })
 app.patch('/api/produtos/editar/:id', async (req, res) => {
     try {

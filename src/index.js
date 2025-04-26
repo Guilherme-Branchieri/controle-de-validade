@@ -21,7 +21,6 @@ const app = express();
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
-// Configure view engine and directory
 app.use(expressEjsLayouts)
 app.use(express.static('public'));
 app.set('layout', path.join(__dirname, 'views/layouts/main'))
@@ -61,8 +60,6 @@ app.get('/', async (req, res) => {
     try {
         let needEmail = false
         const produtos = await ListProdutoService();
-
-        // Filtra e ordena
         const sortedProdutos = produtos
             .filter(p => p.closestExpiration) // Remove itens sem data válida
             .sort((a, b) => a.closestExpiration - b.closestExpiration);
@@ -93,6 +90,8 @@ app.get('/', async (req, res) => {
 
 });
 
+
+// TODO
 // app.get('/email', async (req, res) => {
 //     try {
 //         const produto = await prisma.produto.findUnique({
